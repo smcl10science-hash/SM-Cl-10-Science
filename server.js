@@ -186,7 +186,7 @@ app.post("/login",(req,res)=>{
     return res.json({
       trap:true,
       token:trapToken,
-      minutes:5
+      minutes:90
     });
   }
 
@@ -277,7 +277,7 @@ app.post("/validate",(req,res)=>{
 
     const elapsed = Date.now() - session.loginTime;
 
-    if(elapsed > 5*60*1000){
+if(elapsed > 90*60*1000){
       delete activeSessions[normalizedEmail];
       saveActiveSessions();
       return res.json({ valid:false, trapExpired:true });
@@ -286,7 +286,7 @@ app.post("/validate",(req,res)=>{
     return res.json({
       valid:true,
       trap:true,
-      remaining: Math.ceil((5*60*1000 - elapsed)/1000)
+      remaining: Math.ceil((90*60*1000 - elapsed)/1000)
     });
   }
 
